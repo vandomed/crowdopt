@@ -17,3 +17,19 @@ var_n <- function(x) {
     .Call(`_crowdopt_var_n`, x)
 }
 
+weighted_mean_ii <- function(x, w) {
+    .Call(`_crowdopt_weighted_mean_ii`, x, w)
+}
+
+weighted_mean_in <- function(x, w) {
+    .Call(`_crowdopt_weighted_mean_in`, x, w)
+}
+
+weighted_mean_ni <- function(x, w) {
+    .Call(`_crowdopt_weighted_mean_ni`, x, w)
+}
+
+weighted_mean_nn <- function(x, w) {
+    .Call(`_crowdopt_weighted_mean_nn`, x, w)
+}
+
