@@ -1,4 +1,4 @@
-#' Base R Functions Optimized for Speed
+#' Crowd-Optimized R Functions
 #' 
 #' Faster versions of base R functions (e.g. mean, standard deviation, 
 #' covariance, etc.), mostly written in C++. Function names are the same as the 

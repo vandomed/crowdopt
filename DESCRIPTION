@@ -1,6 +1,6 @@
 Package: crowdopt
 Type: Package
-Title: Base R Functions Optimized for Speed
+Title: Crowd-Optimized R Functions
 Version: 1.1.1
 Date: 2018-03-17
 Author: Dane R. Van Domelen
