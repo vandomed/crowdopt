@@ -1,11 +1,22 @@
-Crowd-Optimized R Functions
-================
-Dane Van Domelen <br> <vandomed@gmail.com>
-2018-03-17
+---
+output: github_document
+title: "Crowd-Optimized R Functions"
+author: "Dane Van Domelen <br> vandomed@gmail.com"
+date: "2018-03-17"
+bibliography: vignettes/bibliography.bib
+nocite: | 
+  @rcpp1, 
+  @rcpp2,
+  @rcpp3,
+  @rfast,
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-Concept
--------
+
+
+
+
+## Concept
 
 The concept for this package is crowdsourced optimization for speed. Long term, the goal is to optimize enough base R functions that a typical R user can drastically speed up their scripts by simply loading **crowdopt** and replacing functions like *mean* and *sd* with *mean2* and *sd2*.
 
@@ -15,24 +26,25 @@ To contribute a function, all you need to do is add a .R file with the code and 
 
 In general, contributed functions should be substantially faster than the corresponding base R function, ideally for both small and large objects (e.g. vectors of length 5 and 500,000).
 
-List of functions
------------------
 
-| Function | Faster version of: | C++?                      |
-|:---------|:-------------------|---------------------------|
-| *mean2*  | *mean*             | Yes (for integer vectors) |
-| *sd2*    | *sd*               | Yes                       |
-| *var2*   | *var*              | Yes                       |
-| *cov2*   | *cov*              | Yes                       |
+## List of functions
 
-Proof of outperformance
------------------------
+| Function   | Faster version of: | C++?
+|:-----------|:-------------------|---------------------------
+| *mean2*    | *mean*             | Yes (for integer vectors)
+| *sd2*      | *sd*               | Yes
+| *var2*     | *var*              | Yes
+| *cov2*     | *cov*              | Yes
+
+
+## Proof of outperformance
 
 ### mean2
 
 This is a faster version of the base R function *mean*, defined simply as `sum(x) / length(x)`. Speed advantage diminishes with `length(x)`.
 
-``` r
+
+```r
 lengths <- c(3, 10, 100, 1000, 10000, 50000, 100000)
 multiples1 <- multiples2 <- c()
 for (ii in 1: 7) {
@@ -67,7 +79,8 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 
 This is a faster version of base R function *sd*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
 
-``` r
+
+```r
 for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
@@ -92,7 +105,8 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 
 This is a faster version of base R function *var*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
 
-``` r
+
+```r
 for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
@@ -113,11 +127,14 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 
 ![](README-unnamed-chunk-3-1.png)
 
+
 ### cov2
 
 This is a faster version of base R function *cov*. For optimal speed, use `integer = TRUE` if `x` and `y` are integer vectors and `integer = FALSE` otherwise.
 
-``` r
+
+
+```r
 for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   y1 <- rpois(lengths[ii], lambda = 3)
@@ -141,13 +158,5 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 
 ![](README-unnamed-chunk-4-1.png)
 
-References
-----------
 
-Eddelbuettel, Dirk. 2013. *Seamless R and C++ Integration with Rcpp*. New York: Springer. doi:[10.1007/978-1-4614-6868-4](https://doi.org/10.1007/978-1-4614-6868-4).
-
-Eddelbuettel, Dirk, and James Joseph Balamuta. 2017. “Extending extitR with extitC++: A Brief Introduction to extitRcpp.” *PeerJ Preprints* 5 (August): e3188v1. doi:[10.7287/peerj.preprints.3188v1](https://doi.org/10.7287/peerj.preprints.3188v1).
-
-Eddelbuettel, Dirk, and Romain François. 2011. “Rcpp: Seamless R and C++ Integration.” *Journal of Statistical Software* 40 (8): 1–18. doi:[10.18637/jss.v040.i08](https://doi.org/10.18637/jss.v040.i08).
-
-Papadakis, Manos, Michail Tsagris, Marios Dimitriadis, Stefanos Fafalios, Ioannis Tsamardinos, Matteo Fasiolo, Giorgos Borboudakis, John Burkardt, Changliang Zou, and Kleanthi Lakiotaki. 2018. *Rfast: A Collection of Efficient and Extremely Fast R Functions*. <https://CRAN.R-project.org/package=Rfast>.
+## References

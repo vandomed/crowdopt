@@ -13,19 +13,12 @@ nocite: |
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r setup, include = FALSE}
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "README-",
-  message = FALSE
-)
-```
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
   message = FALSE
 )
 
@@ -69,21 +62,21 @@ This is a faster version of the base R function *mean*, defined simply as `sum(x
 
 ```{r, fig.width = 6, fig.height = 5}
 lengths <- c(3, 10, 100, 1000, 10000, 50000, 100000)
-times <- matrix(NA, ncol = 4, nrow = length(lengths))
-for (ii in 1: length(lengths)) {
+multiples1 <- multiples2 <- c()
+for (ii in 1: 7) {
+  print(ii)
   x1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
-  times[ii, ] <- summary(microbenchmark(mean(x1), mean2(x1), 
-                                        mean(x2), mean2(x2), 
-                                        times = 1000, unit = "us"))$median
+  medians <- summary(microbenchmark(mean(x1), mean2(x1), mean(x2), mean2(x2), 
+                                    times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
 }
-multiples1 <- times[, 1] / times[, 2]
-multiples2 <- times[, 3] / times[, 4]
-plot(1: length(lengths), multiples1, type = "b", col = "blue", 
-     main = "mean2 vs. mean", ylab = "Speed multiple", xlab = "Vector length", 
-     xaxt = "n", ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
-points(1: length(lengths), multiples2, type = "b", col = "red")
-axis(side = 1, at = 1: length(lengths), labels = lengths)
+plot(1: 7, multiples1, type = "b", col = "blue", main = "mean2 vs. mean", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
 abline(h = 1)
 legend("topright", legend = c("Integer x", "Numeric x"), lty = 1, 
        col = c("blue", "red"))
@@ -94,21 +87,19 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 This is a faster version of base R function *sd*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
 
 ```{r, fig.width = 6, fig.height = 5}
-times <- matrix(NA, ncol = 4, nrow = length(lengths))
-for (ii in 1: length(lengths)) {
+for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
-  times[ii, ] <- summary(microbenchmark(sd(x1), sd2(x1, TRUE),
-                                        sd(x2), sd2(x2), 
-                                        times = 1000, unit = "us"))$median
+  medians <- summary(microbenchmark(sd(x1), sd2(x1, TRUE), sd(x2), sd2(x2), 
+                                    times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
 }
-multiples1 <- times[, 1] / times[, 2]
-multiples2 <- times[, 3] / times[, 4]
-plot(1: length(lengths), multiples1, type = "b", col = "blue", 
-     main = "sd2 vs. sd", ylab = "Speed multiple", xlab = "Vector length", 
-     xaxt = "n", ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
-points(1: length(lengths), multiples2, type = "b", col = "red")
-axis(side = 1, at = 1: length(lengths), labels = lengths)
+plot(1: 7, multiples1, type = "b", col = "blue", main = "sd2 vs. sd", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
 abline(h = 1)
 legend("topright", legend = c("Integer x", "Numeric x"), lty = 1, 
        col = c("blue", "red"))
@@ -119,24 +110,23 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 This is a faster version of base R function *var*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
 
 ```{r, fig.width = 6, fig.height = 5}
-times <- matrix(NA, ncol = 4, nrow = length(lengths))
-for (ii in 1: length(lengths)) {
+for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
-  times[ii, ] <- summary(microbenchmark(var(x1), var2(x1, TRUE),
-                                        var(x2), var2(x2), 
-                                        times = 1000, unit = "us"))$median
+  medians <- summary(microbenchmark(var(x1), var2(x1, TRUE), var(x2), var2(x2), 
+                                    times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
 }
-multiples1 <- times[, 1] / times[, 2]
-multiples2 <- times[, 3] / times[, 4]
-plot(1: length(lengths), multiples1, type = "b", col = "blue", 
-     main = "var2 vs. var", ylab = "Speed multiple", xlab = "Vector length", 
-     xaxt = "n", ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
-points(1: length(lengths), multiples2, type = "b", col = "red")
-axis(side = 1, at = 1: length(lengths), labels = lengths)
+plot(1: 7, multiples1, type = "b", col = "blue", main = "var2 vs. var", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
 abline(h = 1)
 legend("topright", legend = c("Integer x", "Numeric x"), lty = 1, 
        col = c("blue", "red"))
+
 ```
 
 
@@ -146,26 +136,26 @@ This is a faster version of base R function *cov*. For optimal speed, use `integ
 
 
 ```{r, fig.width = 6, fig.height = 5}
-times <- matrix(NA, ncol = 4, nrow = length(lengths))
-for (ii in 1: length(lengths)) {
+for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
   y1 <- rpois(lengths[ii], lambda = 3)
   x2 <- rnorm(lengths[ii])
   y2 <- rnorm(lengths[ii])
-  times[ii, ] <- summary(microbenchmark(cov(x1, y1), cov2(x1, y1, TRUE), 
-                                        cov(x2, y2), cov2(x2, y2),
-                                        times = 1000, unit = "us"))$median
+  medians <- 
+    summary(microbenchmark(cov(x1, y1), cov2(x1, y1, TRUE), 
+                           cov(x2, y2), cov2(x2, y2), times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
 }
-multiples1 <- times[, 1] / times[, 2]
-multiples2 <- times[, 3] / times[, 4]
-plot(1: length(lengths), multiples1, type = "b", col = "blue", 
-     main = "cov2 vs. cov", ylab = "Speed multiple", xlab = "Vector length", 
-     xaxt = "n", ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
-points(1: length(lengths), multiples2, type = "b", col = "red")
-axis(side = 1, at = 1: length(lengths), labels = lengths)
+plot(1: 7, multiples1, type = "b", col = "blue", main = "cov2 vs. cov", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
 abline(h = 1)
 legend("topright", legend = c("Integer x", "Numeric x"), lty = 1, 
        col = c("blue", "red"))
+
 ```
 
 
