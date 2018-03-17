@@ -1,8 +1,8 @@
-#' Sample Covariance
+#' Sample Covariance for 2 Vectors
 #' 
-#' Faster version of base R function \code{\link[stats]{cov}}. For optimal speed, 
-#' use \code{Integer = TRUE} if \code{x} and \code{y} are integer vectors and 
-#' \code{integer = FALSE} otherwise. 
+#' This is a faster version of base R function \code{\link[stats]{cov}}. For 
+#' optimal speed, use \code{integer = TRUE} if \code{x} and \code{y} are integer 
+#' vectors and \code{integer = FALSE} otherwise. 
 #' 
 #' 
 #' @param x,y Integer or numeric vector.

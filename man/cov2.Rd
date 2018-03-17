@@ -2,7 +2,7 @@
 % Please edit documentation in R/cov2.R
 \name{cov2}
 \alias{cov2}
-\title{Sample Covariance}
+\title{Sample Covariance for 2 Vectors}
 \usage{
 cov2(x, y, integer = FALSE)
 }
@@ -16,9 +16,9 @@ vectors.}
 Numeric value.
 }
 \description{
-Faster version of base R function \code{\link[stats]{cov}}. For optimal speed, 
-use \code{Integer = TRUE} if \code{x} and \code{y} are integer vectors and 
-\code{integer = FALSE} otherwise.
+This is a faster version of base R function \code{\link[stats]{cov}}. For 
+optimal speed, use \code{integer = TRUE} if \code{x} and \code{y} are integer 
+vectors and \code{integer = FALSE} otherwise.
 }
 \examples{
 # cov2 vs. cov for integer vector

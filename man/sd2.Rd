@@ -15,9 +15,10 @@ sd2(x, integer = FALSE)
 Numeric value.
 }
 \description{
-Faster version of base R function \code{\link[stats]{sd}}. For optimal speed, 
-use \code{Integer = TRUE} if \code{x} is an integer vector and 
-\code{integer = FALSE} otherwise.
+This is a faster version of base R function \code{\link[stats]{sd}}. For 
+optimal speed, use \code{integer = TRUE} if \code{x} is an integer vector and 
+\code{integer = FALSE} otherwise. Note that for long vectors the function 
+\code{Var} in \pkg{Rfast} is typically much faster than \code{\link{sd2}}.
 }
 \examples{
 # sd2 vs. sd for integer vector
@@ -31,4 +32,10 @@ all.equal(sd(x), sd2(x))
 benchmark(sd(x), sd2(x), replications = 2000) 
 
 
+}
+\references{
+Papadakis, M., Tsagris, M., Dimitriadis, M., Fafalios, S., Tsamardinos, I., 
+Fasiolo, M., Borboudakis, G., Burkardt, J., Zou, C. and Lakiotaki, K. (2018) 
+Rfast: A Collection of Efficient and Extremely Fast R Functions. R package 
+version 1.8.8. \url{https://CRAN.R-project.org/package=Rfast}.
 }

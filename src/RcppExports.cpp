@@ -29,17 +29,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// mean_i
-double mean_i(IntegerVector x);
-RcppExport SEXP _crowdopt_mean_i(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(mean_i(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // var_i
 double var_i(IntegerVector x);
 RcppExport SEXP _crowdopt_var_i(SEXP xSEXP) {
@@ -66,7 +55,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_crowdopt_cov_i", (DL_FUNC) &_crowdopt_cov_i, 2},
     {"_crowdopt_cov_n", (DL_FUNC) &_crowdopt_cov_n, 2},
-    {"_crowdopt_mean_i", (DL_FUNC) &_crowdopt_mean_i, 1},
     {"_crowdopt_var_i", (DL_FUNC) &_crowdopt_var_i, 1},
     {"_crowdopt_var_n", (DL_FUNC) &_crowdopt_var_n, 1},
     {NULL, NULL, 0}

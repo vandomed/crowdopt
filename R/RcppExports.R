@@ -9,10 +9,6 @@ cov_n <- function(x, y) {
     .Call(`_crowdopt_cov_n`, x, y)
 }
 
-mean_i <- function(x) {
-    .Call(`_crowdopt_mean_i`, x)
-}
-
 var_i <- function(x) {
     .Call(`_crowdopt_var_i`, x)
 }
