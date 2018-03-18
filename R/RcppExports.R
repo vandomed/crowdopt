@@ -9,6 +9,22 @@ cov_n <- function(x, y) {
     .Call(`_crowdopt_cov_n`, x, y)
 }
 
+diff_i <- function(x, lag = 1L) {
+    .Call(`_crowdopt_diff_i`, x, lag)
+}
+
+diff_n <- function(x, lag = 1L) {
+    .Call(`_crowdopt_diff_n`, x, lag)
+}
+
+range_i <- function(x) {
+    .Call(`_crowdopt_range_i`, x)
+}
+
+range_n <- function(x) {
+    .Call(`_crowdopt_range_n`, x)
+}
+
 var_i <- function(x) {
     .Call(`_crowdopt_var_i`, x)
 }

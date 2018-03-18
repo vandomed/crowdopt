@@ -1,7 +1,7 @@
 Crowd-Optimized R Functions
 ================
 Dane Van Domelen <br> <vandomed@gmail.com>
-2018-03-17
+2018-03-18
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Concept
@@ -25,7 +25,9 @@ List of functions
 | *sd2*            | *sd*               | Yes                       |
 | *var2*           | *var*              | Yes                       |
 | *cov2*           | *cov*              | Yes                       |
-| *weighted.mean2* | weighted.mean      | Yes                       |
+| *weighted.mean2* | *weighted.mean*    | Yes                       |
+| *range2*         | *range*            | Yes                       |
+| *diff2*          | *diff*             | Yes                       |
 
 Proof of outperformance
 -----------------------
@@ -166,6 +168,77 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
 ```
 
 ![](README-unnamed-chunk-5-1.png)
+
+### range2
+
+This is a faster version of base R function *range*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise.
+
+``` r
+for (ii in 1: 7) {
+  x1 <- rpois(lengths[ii], lambda = 3)
+  x2 <- rnorm(lengths[ii])
+  medians <- summary(microbenchmark(range(x1), range2(x1, TRUE), range(x2), 
+                                    range2(x2), times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
+}
+plot(1: 7, multiples1, type = "b", col = "blue", main = "range2 vs. range", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
+abline(h = 1)
+legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1, 
+       col = c("blue", "red"))
+```
+
+![](README-unnamed-chunk-6-1.png)
+
+### diff2
+
+This is a faster version of base R function *diff*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise.
+
+``` r
+multiples3 <- multiples4 <- c()
+for (ii in 1: 7) {
+  x1 <- rpois(lengths[ii], lambda = 3)
+  x2 <- rnorm(lengths[ii])
+  medians <- 
+    summary(microbenchmark(diff(x1), diff2(x1, integer = TRUE), 
+                           diff(x1, 2), diff2(x1, 2), 
+                           diff(x2), diff2(x2, integer = TRUE), 
+                           diff(x2, 2), diff2(x2, 2), times = 250))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
+  multiples3[ii] <- medians[5] / medians[6]
+  multiples4[ii] <- medians[7] / medians[8]
+}
+
+plot(1: 7, multiples1, type = "b", col = "blue", main = "diff2 vs. diff (lag = 1)", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
+abline(h = 1)
+legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1, 
+       col = c("blue", "red"))
+```
+
+![](README-unnamed-chunk-7-1.png)
+
+``` r
+
+plot(1: 7, multiples3, type = "b", col = "blue", main = "diff2 vs. diff (lag = 2)", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples3, multiples4)) * 1.05))
+points(1: 7, multiples4, type = "b", col = "red")
+axis(side = 1, at = 1: 7, labels = lengths)
+abline(h = 1)
+legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1, 
+       col = c("blue", "red"))
+```
+
+![](README-unnamed-chunk-7-2.png)
 
 References
 ----------

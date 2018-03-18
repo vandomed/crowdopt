@@ -29,6 +29,52 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// diff_i
+IntegerVector diff_i(IntegerVector x, int lag);
+RcppExport SEXP _crowdopt_diff_i(SEXP xSEXP, SEXP lagSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type lag(lagSEXP);
+    rcpp_result_gen = Rcpp::wrap(diff_i(x, lag));
+    return rcpp_result_gen;
+END_RCPP
+}
+// diff_n
+NumericVector diff_n(NumericVector x, int lag);
+RcppExport SEXP _crowdopt_diff_n(SEXP xSEXP, SEXP lagSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type lag(lagSEXP);
+    rcpp_result_gen = Rcpp::wrap(diff_n(x, lag));
+    return rcpp_result_gen;
+END_RCPP
+}
+// range_i
+IntegerVector range_i(IntegerVector x);
+RcppExport SEXP _crowdopt_range_i(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(range_i(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// range_n
+NumericVector range_n(NumericVector x);
+RcppExport SEXP _crowdopt_range_n(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(range_n(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // var_i
 double var_i(IntegerVector x);
 RcppExport SEXP _crowdopt_var_i(SEXP xSEXP) {
@@ -103,6 +149,10 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_crowdopt_cov_i", (DL_FUNC) &_crowdopt_cov_i, 2},
     {"_crowdopt_cov_n", (DL_FUNC) &_crowdopt_cov_n, 2},
+    {"_crowdopt_diff_i", (DL_FUNC) &_crowdopt_diff_i, 2},
+    {"_crowdopt_diff_n", (DL_FUNC) &_crowdopt_diff_n, 2},
+    {"_crowdopt_range_i", (DL_FUNC) &_crowdopt_range_i, 1},
+    {"_crowdopt_range_n", (DL_FUNC) &_crowdopt_range_n, 1},
     {"_crowdopt_var_i", (DL_FUNC) &_crowdopt_var_i, 1},
     {"_crowdopt_var_n", (DL_FUNC) &_crowdopt_var_n, 1},
     {"_crowdopt_weighted_mean_ii", (DL_FUNC) &_crowdopt_weighted_mean_ii, 2},

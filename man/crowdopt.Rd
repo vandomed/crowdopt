@@ -35,7 +35,7 @@ vectors of length 5 and 500,000).
 Package: \tab crowdopt \cr
 Type: \tab Package \cr
 Version: \tab 1.1.1 \cr
-Date: \tab 2018-03-17 \cr
+Date: \tab 2018-03-18 \cr
 License: \tab GPL-3 \cr
 }
 }
