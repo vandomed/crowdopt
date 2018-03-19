@@ -24,12 +24,12 @@
 #' # var2 vs. var for integer vector
 #' x <- rpois(1000, lambda = 5)
 #' all.equal(var(x), var2(x, TRUE))
-#' benchmark(var(x), var2(x, TRUE), replications = 1000)
+#' benchmark(var(x), var2(x, TRUE), replications = 2000)
 #' 
 #' # var2 vs. var for numeric vector
 #' x <- rnorm(1000)
 #' all.equal(var(x), var2(x))
-#' benchmark(var(x), var2(x), replications = 1000)
+#' benchmark(var(x), var2(x), replications = 2000)
 #' 
 #' 
 #' @export

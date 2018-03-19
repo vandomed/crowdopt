@@ -23,12 +23,12 @@ optimal speed, use \code{integer = TRUE} if \code{x} is an integer vector and
 # range2 vs. range for integer vector
 x <- rpois(1000, lambda = 5)
 all.equal(range(x), range2(x, TRUE))
-benchmark(range(x), range2(x, TRUE), replications = 10000)
+benchmark(range(x), range2(x, TRUE), replications = 5000)
 
 # range2 vs. range for numeric vector
 x <- rnorm(1000)
 all.equal(range(x), range2(x))
-benchmark(range(x), range2(x), replications = 10000)
+benchmark(range(x), range2(x), replications = 5000)
 
 
 }

@@ -25,12 +25,12 @@ vectors, so it is not currently utilized.
 # mean2 vs. mean for integer vector
 x <- rpois(1000, lambda = 5)
 all.equal(mean(x), mean2(x))
-benchmark(mean(x), mean2(x), replications = 1000)
+benchmark(mean(x), mean2(x), replications = 5000)
 
 # mean2 vs. mean for numeric vector
 x <- rnorm(1000)
 all.equal(mean(x), mean2(x))
-benchmark(mean(x), mean2(x), replications = 1000)
+benchmark(mean(x), mean2(x), replications = 5000)
 
 
 }
