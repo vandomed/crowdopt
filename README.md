@@ -1,13 +1,13 @@
 Crowd-Optimized R Functions
 ================
 Dane Van Domelen <br> <vandomed@gmail.com>
-2018-03-18
+2018-03-19
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Concept
 -------
 
-The concept for this package is crowdsourced optimization for speed. Long term, the goal is to optimize enough base R functions that a typical R user can drastically speed up their scripts by simply loading **crowdopt** and replacing functions like *mean* and *sd* with *mean2* and *sd2*.
+The concept for this package is crowdsourced optimization for speed. Long term, the goal is to optimize enough base R functions that a typical R user can drastically speed up their scripts by simply loading **crowdopt** and replacing functions like *range* and *sd* with *range2* and *sd2*.
 
 Anyone can contribute on [GitHub](https://github.com/vandomed/crowdopt). Once you contribute a function, you become a co-author for the package, and remain a co-author even if your function eventually gets replaced by a faster one developed by somebody else.
 
@@ -18,52 +18,24 @@ In general, contributed functions should be substantially faster than the corres
 List of functions
 -----------------
 
-| Function         | Faster version of: | C++?                      |
-|:-----------------|:-------------------|---------------------------|
-| *mean2*          | *mean*             | Yes (for integer vectors) |
-| *weighted.mean2* | *weighted.mean*    | Yes                       |
-| *sd2*            | *sd*               | Yes                       |
-| *var2*           | *var*              | Yes                       |
-| *cov2*           | *cov*              | Yes                       |
-| *weighted.mean2* | *weighted.mean*    | Yes                       |
-| *range2*         | *range*            | Yes                       |
-| *diff2*          | *diff*             | Yes                       |
+| Function         | Faster version of: | C++? |
+|:-----------------|:-------------------|------|
+| *weighted.mean2* | *weighted.mean*    | Yes  |
+| *sd2*            | *sd*               | Yes  |
+| *var2*           | *var*              | Yes  |
+| *cov2*           | *cov*              | Yes  |
+| *range2*         | *range*            | Yes  |
+| *diff2*          | *diff*             | Yes  |
 
 Proof of outperformance
 -----------------------
-
-### mean2
-
-This is a faster version of the base R function *mean*, defined simply as `sum(x) / length(x)`. Speed advantage diminishes with `length(x)`.
-
-``` r
-lengths <- c(3, 10, 100, 1000, 10000, 50000, 100000)
-multiples1 <- multiples2 <- c()
-for (ii in 1: 7) {
-  x1 <- rpois(lengths[ii], lambda = 3)
-  x2 <- rnorm(lengths[ii])
-  medians <- summary(microbenchmark(mean(x1), mean2(x1), mean(x2), mean2(x2), 
-                                    times = 250))$median
-  multiples1[ii] <- medians[1] / medians[2]
-  multiples2[ii] <- medians[3] / medians[4]
-}
-plot(1: 7, multiples1, type = "b", col = "blue", main = "mean2 vs. mean", 
-     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
-     ylim = c(0, max(c(multiples1, multiples2)) * 1.05))
-points(1: 7, multiples2, type = "b", col = "red")
-axis(side = 1, at = 1: 7, labels = lengths)
-abline(h = 1)
-legend("topright", legend = c("Integer x", "Numeric x"), lty = 1, 
-       col = c("blue", "red"))
-```
-
-![](README-unnamed-chunk-1-1.png)
 
 ### weighted.mean2
 
 This is a faster version of the base R function *weighted.mean*. For optimal speed, specify `x.integer = TRUE` and `w.integer = TRUE` if `x` and `w` are integer vectors.
 
 ``` r
+lengths <- c(3, 10, 100, 1000, 10000, 50000, 100000)
 multiples1 <- multiples2 <- c()
 for (ii in 1: 7) {
   x1 <- rpois(lengths[ii], lambda = 3)
@@ -89,11 +61,11 @@ legend("topleft", legend = c("Integer x, w", "Numeric x, w"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-2-1.png)
+![](README-unnamed-chunk-1-1.png)
 
 ### sd2
 
-This is a faster version of base R function *sd*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
+This is a faster version of base R function *sd*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*. Also, this function uses a one-pass variance calculation that makes it susceptible to precision issues if `x` values are very large.
 
 ``` r
 for (ii in 1: 7) {
@@ -114,11 +86,11 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-3-1.png)
+![](README-unnamed-chunk-2-1.png)
 
 ### var2
 
-This is a faster version of base R function *var*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*.
+This is a faster version of base R function *var*. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Note that for long vectors the function *Var* in **Rfast** is typically much faster than *sd2*. Also, this function uses a one-pass variance calculation that makes it susceptible to precision issues if `x` values are very large.
 
 ``` r
 for (ii in 1: 7) {
@@ -139,11 +111,11 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](README-unnamed-chunk-3-1.png)
 
 ### cov2
 
-This is a faster version of base R function *cov*. For optimal speed, use `integer = TRUE` if `x` and `y` are integer vectors and `integer = FALSE` otherwise.
+This is a faster version of base R function *cov*. For optimal speed, use `integer = TRUE` if `x` and `y` are integer vectors and `integer = FALSE` otherwise. This function uses a one-pass covariance calculation that makes it susceptible to precision issues if `x` values are very large.
 
 ``` r
 for (ii in 1: 7) {
@@ -167,7 +139,7 @@ legend("topright", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-5-1.png)
+![](README-unnamed-chunk-4-1.png)
 
 ### range2
 
@@ -192,7 +164,7 @@ legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-6-1.png)
+![](README-unnamed-chunk-5-1.png)
 
 ### diff2
 
@@ -224,7 +196,7 @@ legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-7-1.png)
+![](README-unnamed-chunk-6-1.png)
 
 ``` r
 
@@ -238,7 +210,7 @@ legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
-![](README-unnamed-chunk-7-2.png)
+![](README-unnamed-chunk-6-2.png)
 
 References
 ----------

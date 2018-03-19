@@ -18,7 +18,9 @@ Numeric value.
 \description{
 This is a faster version of base R function \code{\link[stats]{cov}}. For 
 optimal speed, use \code{integer = TRUE} if \code{x} and \code{y} are integer 
-vectors and \code{integer = FALSE} otherwise.
+vectors and \code{integer = FALSE} otherwise. This function uses a one-pass 
+covariance calculation that makes it susceptible to precision issues if 
+\code{x} values are very large.
 }
 \examples{
 # cov2 vs. cov for integer vector

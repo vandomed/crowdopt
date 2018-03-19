@@ -2,7 +2,6 @@
 
 export(cov2)
 export(diff2)
-export(mean2)
 export(range2)
 export(sd2)
 export(var2)

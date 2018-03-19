@@ -6,15 +6,16 @@
 \alias{crowdopt-package}
 \title{Crowd-Optimized R Functions}
 \description{
-Faster versions of base R functions (e.g. mean, standard deviation, 
-covariance, etc.), mostly written in C++. Function names are the same as the 
-corresponding base R functions, but with a 2 added (e.g. mean2 for mean).
+Faster versions of base R functions (e.g. weighted mean, standard deviation, 
+covariance), mostly written in C++. Function names are the same as the 
+corresponding base R functions, but with a 2 added (e.g. weighted.mean2 for 
+weighted.mean).
 }
 \details{
 The concept for this package is crowdsourced optimization for speed. Long 
 term, the goal is to optimize enough base R functions that a typical R user 
 can drastically speed up their scripts by simply loading **crowdopt** and 
-replacing functions like *mean* and *sd* with *mean2* and *sd2*.
+replacing functions with the optimized version.
 
 Anyone can contribute on GitHub (\url{https://github.com/vandomed/crowdopt}). 
 Once you contribute a function, you become a co-author for the package, and 
@@ -23,7 +24,7 @@ one developed by somebody else.
 
 To contribute a function, all you need to do is add 1 .R file with the code 
 and documentation for your function, using \strong{roxygen2} syntax. You can 
-use \code{mean2.R} as a template. Be sure to include an \strong{Examples} 
+use \code{range2.R} as a template. Be sure to include an \strong{Examples} 
 section in which you demonstrate that your function is faster than the 
 corresponding base R function.
 
@@ -35,7 +36,7 @@ vectors of length 5 and 500,000).
 Package: \tab crowdopt \cr
 Type: \tab Package \cr
 Version: \tab 1.1.1 \cr
-Date: \tab 2018-03-18 \cr
+Date: \tab 2018-03-19 \cr
 License: \tab GPL-3 \cr
 }
 }
