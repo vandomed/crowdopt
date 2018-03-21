@@ -2,7 +2,7 @@ Package: crowdopt
 Type: Package
 Title: Crowd-Optimized R Functions
 Version: 1.1.1
-Date: 2018-03-19
+Date: 2018-03-20
 Author: Dane R. Van Domelen
 Maintainer: Dane R. Van Domelen <vandomed@gmail.com>
 Description: Faster versions of base R functions (e.g. weighted mean, standard deviation, covariance), mostly written in C++. Function names are the same as the corresponding base R functions, but with a 2 added (e.g. weighted.mean2 for weighted.mean).

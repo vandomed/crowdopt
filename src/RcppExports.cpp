@@ -75,6 +75,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rle2_i
+IntegerMatrix rle2_i(IntegerVector x);
+RcppExport SEXP _crowdopt_rle2_i(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rle2_i(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rle2_n
+NumericMatrix rle2_n(NumericVector x);
+RcppExport SEXP _crowdopt_rle2_n(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rle2_n(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // var_i
 double var_i(IntegerVector x);
 RcppExport SEXP _crowdopt_var_i(SEXP xSEXP) {
@@ -153,6 +175,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_crowdopt_diff_n", (DL_FUNC) &_crowdopt_diff_n, 2},
     {"_crowdopt_range_i", (DL_FUNC) &_crowdopt_range_i, 1},
     {"_crowdopt_range_n", (DL_FUNC) &_crowdopt_range_n, 1},
+    {"_crowdopt_rle2_i", (DL_FUNC) &_crowdopt_rle2_i, 1},
+    {"_crowdopt_rle2_n", (DL_FUNC) &_crowdopt_rle2_n, 1},
     {"_crowdopt_var_i", (DL_FUNC) &_crowdopt_var_i, 1},
     {"_crowdopt_var_n", (DL_FUNC) &_crowdopt_var_n, 1},
     {"_crowdopt_weighted_mean_ii", (DL_FUNC) &_crowdopt_weighted_mean_ii, 2},

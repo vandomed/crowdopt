@@ -25,6 +25,14 @@ range_n <- function(x) {
     .Call(`_crowdopt_range_n`, x)
 }
 
+rle2_i <- function(x) {
+    .Call(`_crowdopt_rle2_i`, x)
+}
+
+rle2_n <- function(x) {
+    .Call(`_crowdopt_rle2_n`, x)
+}
+
 var_i <- function(x) {
     .Call(`_crowdopt_var_i`, x)
 }

@@ -3,6 +3,7 @@
 export(cov2)
 export(diff2)
 export(range2)
+export(rle2)
 export(sd2)
 export(var2)
 export(weighted.mean2)

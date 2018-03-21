@@ -55,6 +55,7 @@ In general, contributed functions should be substantially faster than the corres
 | *cov2*           | *cov*              | Yes
 | *range2*         | *range*            | Yes
 | *diff2*          | *diff*             | Yes
+| *rle2*           | *rle*              | Yes
 
 
 ## Proof of outperformance
@@ -233,5 +234,34 @@ legend("topleft", legend = c("Integer x", "Numeric x"), lty = 1,
        col = c("blue", "red"))
 ```
 
+
+### rle2
+
+This is a faster version of base R function `rle`. Returns matrix where first column is value, second column is length. For optimal speed, use `integer = TRUE` if `x` is an integer vector and `integer = FALSE` otherwise. Compatible with logical vectors (use `integer = TRUE`) but replaces TRUE/FALSE with 1/0; not compatible with character vectors. 
+
+```{r}
+for (ii in 1: 7) {
+  x1 <- rpois(lengths[ii], lambda = 0.1)
+  x2 <- sample(c(0.1, 0.2), size = lengths[ii], replace = TRUE)
+  x3 <- sample(c(TRUE, FALSE), size = lengths[ii], replace = TRUE)
+  medians <- summary(microbenchmark(rle(x1), rle2(x1, TRUE), 
+                                    rle(x2), rle2(x1), 
+                                    rle(x3), rle2(x3, TRUE), 
+                                    times = 50))$median
+  multiples1[ii] <- medians[1] / medians[2]
+  multiples2[ii] <- medians[3] / medians[4]
+  multiples3[ii] <- medians[5] / medians[6]
+}
+plot(1: 7, multiples1, type = "b", col = "blue", main = "rle2 vs. rle", 
+     ylab = "Speed multiple", xlab = "Vector length", xaxt = "n", 
+     ylim = c(0, max(c(multiples1, multiples2, multiples3)) * 1.05))
+points(1: 7, multiples2, type = "b", col = "red")
+points(1: 7, multiples3, type = "b", col = "orange")
+axis(side = 1, at = 1: 7, labels = lengths)
+abline(h = 1)
+legend("bottomleft", legend = c("Integer x", "Numeric x", "Logical x"), lty = 1, 
+       col = c("blue", "red", "orange"))
+
+```
 
 ## References
