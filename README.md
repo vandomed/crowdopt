@@ -1,7 +1,7 @@
 Crowd-Optimized R Functions
 ================
 Dane Van Domelen <br> <vandomed@gmail.com>
-2018-03-20
+2018-03-21
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 Concept
